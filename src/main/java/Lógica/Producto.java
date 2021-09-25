@@ -24,7 +24,8 @@ public class Producto {
     private int Cantidad;
     private String Tipo;
     private String Proveedor;
-
+    public Producto() {
+    }
 
  
 
@@ -127,7 +128,7 @@ public class Producto {
 
 //actualizar 
     public boolean actualizarProducto(int Codigo_producto){
-        ConexionBD conexion = new ConexionBD();
+        ConexionDB conexion = new ConexionDB();
         
         String sentencia = "UPDATE Inventarioo SET Nombre_Producto='"+this.Nombre_Producto+"', Precio='"+this.Precio+"',Cantidad='"+
                             this.Cantidad+"',Fecha_vencimiento='"+this.Fecha_vencimiento+",'Tipo='" +this.Tipo +"'Proveedor='"+this.Proveedor +" 'WHERE Codigo_producto="+this.Codigo_producto+";";
@@ -144,7 +145,7 @@ public class Producto {
 
 
     public List<Producto> listarContactos() throws SQLException {
-        ConexionBD conexion = new ConexionBD();
+        ConexionDB conexion = new ConexionDB();
         ArrayList<Producto> listaProductos = new ArrayList<>();
         String sentencia = "SELECT * FROM productos";
         ResultSet rs = conexion.consultarDB(sentencia);
@@ -172,7 +173,7 @@ public class Producto {
      }
 
     public Producto consultarProducto(int id){
-        ConexionBD conexion = new ConexionBD();
+        ConexionDB conexion = new ConexionDB();
         
         String sentencia = "SELEC * FROM productos WHERE Codigo_producto="+Codigo_producto+";";        
         System.out.println(sentencia);
