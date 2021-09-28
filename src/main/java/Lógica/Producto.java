@@ -112,7 +112,7 @@ public class Producto {
         return true;
     }
 
-    public boolean borrarContacto(int Codigo_producto) {
+    public boolean borrarProducto(int Codigo_producto) {
         ConexionDB conexion = new ConexionDB();
         
         String sentencia = "DELETE FROM Inventarioo WHERE Codigo_producto='"+Codigo_producto+"';";
@@ -144,7 +144,7 @@ public class Producto {
     
 
 
-    public List<Producto> listarContactos() throws SQLException {
+    public List<Producto> listarProductos() throws SQLException {
         ConexionDB conexion = new ConexionDB();
         ArrayList<Producto> listaProductos = new ArrayList<>();
         String sentencia = "SELECT * FROM productos";
