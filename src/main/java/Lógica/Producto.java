@@ -159,7 +159,7 @@ public class Producto {
                 P.setPrecio(rs.getInt("Precio"));
                 P.setCodigo_producto(rs.getInt("Codigo_producto"));
                 P.setFecha_vencimiento(rs.getString("Fecha_vencimiento"));
-                P.setCantidad(rs.getInt("cantidad"));
+                P.setCantidad(rs.getInt("Cantidad"));
                 P.setTipo(rs.getString("Tipo"));
                 P.setProveedor(rs.getString("Proveedor"));
               

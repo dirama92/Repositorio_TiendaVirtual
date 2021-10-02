@@ -24,10 +24,10 @@
 //Listar las tareas o los procesos a realizar
 
     List<String> tareas = Arrays.asList(new String[] {
-        "actualizarproducto",
-        "eliminarproducto",
-        "listarproducto",
-        "guardarproducto",
+        "actualizarProducto",
+        "borrarProducto",
+        "listarProductos",
+        "guardarProducto",
         });
         
     String proceso = "" + request.getParameter("proceso");
@@ -37,7 +37,7 @@
     respuesta += "\"ok\": true,";
     
     //Iniciar los respectivos procesos
-    if (proceso.equals("guardarproducto")){
+    if (proceso.equals("guardarProducto")){
      String Nombre_Producto = request.getParameter("Nombre_producto");
      int Precio = Integer.parseInt(request.getParameter("Precio"));
      int Codigo_producto = Integer.parseInt(request.getParameter("Codigo_producto"));
@@ -61,7 +61,7 @@
        respuesta += "\"ok\": false,";
     
     }
-    else if (proceso.equals("eliminarproducto")){
+    else if (proceso.equals("borrarProducto")){
      Producto p= new Producto();
      int Codigo_producto= Integer.parseInt(request.getParameter("Codigo_producto"));
      if (p.borrarProducto(Codigo_producto)){
@@ -72,7 +72,7 @@
     }
     
     }
-    else if (proceso.equals("listarproducto")){
+    else if (proceso.equals("listarProductos")){
      Producto p= new Producto();
      try { 
         
@@ -86,7 +86,7 @@
              
     }
     
-    else if (proceso.equals("actualizarproducto")){
+    else if (proceso.equals("actualizarProducto")){
         int Codigo_producto= Integer.parseInt(request.getParameter("Codigo_producto"));
         String Nombre_Producto = request.getParameter("Nombre_producto");
         int Precio = Integer.parseInt(request.getParameter("Precio"));
