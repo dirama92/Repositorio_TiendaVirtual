@@ -16,7 +16,7 @@
         <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script> 
     </head>
     <body class="bg-primary">
-        <div class="container-fluid" ng-app = "TiendaMiBarrio" ng-controller = "productosController as cn">
+        <div class="container-fluid" ng-app = "TiendaMiBarrio" ng-controller = "productossController as cn">
             <div class="row">
                 <div class="col-12">
                     <center><h1>Tienda mi barrio</h1></center> 
@@ -24,39 +24,36 @@
             </div>
             
             
-            <div class="row">
-                <div class="col">
+
                     <center><h3>Ingresar Producto</h3></center>
                     <div class="row">
                         <div class="col-6">
                             <label >Nombre del producto</label>
-                            <input class="form-control" type="number" min="0" ng-model="cn.Nombre_Producto" required>
+                            <input class="form-control" type="text" ng-model="cn.Nombre_Producto" required>
                         </div>
                         <div class="col-6">
                             <label>Precio</label>
-                            <input class="form-control" type="text" ng-model="cn.Precio" required>
+                            <input class="form-control" type="number" min="0" ng-model="cn.Precio" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <label>Codigo del producto</label>
-                            <input class="form-control" type="text" ng-model="cn.Codigo_producto" required>
+                            <input class="form-control" type="number" ng-model="cn.Codigo_producto" required>
                         </div>
                         <div class="col-6">
                             <label>Fecha vencimineto</label>
                             <input class="form-control" type="text" ng-model="cn.Fecha_vencimiento" required>
-                            </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <label>Cantidad</label>
-                            <input class="form-control" type="text" ng-model="cn.Cantidad" required>
-                            </select>
+                            <input class="form-control" type="number" min="0" ng-model="cn.Cantidad" required>
                         </div>
                         <div class="col-6">
                             <label>Tipo</label>
-                            <select class="form-control" ng-model="cn.tipoTipo" required>
+                            <select class="form-control" ng-model="cn.Tipo" required>
                                 <option>Frutas-verdura</option>
                                 <option>vivere</option>
                                 <option>Aseo</option>
@@ -71,10 +68,12 @@
                     </div>
                     <div class="row">
                         <div class="col-3">
-                            <button  class="btn btn-success" ng-click="cn.guardarContacto()">Guardar</button>
+                            <button  class="btn btn-success" ng-click="cn.guardarProducto()">Guardar</button>
+                        </div>
+                        <div class="col-3">
+                            <button  class="btn btn-primary" ng-click="cn.listarProductos()">Listar Producto</button>
                         </div>
                     </div>
-                </div>
             
             
              <div class="co-6">   
@@ -105,9 +104,8 @@
                     </tr>  
                 </table> 
             </div>
-        </div>
-    </div>
-        
+       </div>
+
         
     </body>
 
@@ -126,9 +124,39 @@
                     url: 'Peticiones.jsp',
                     params: params
                 }).then(function (res) {
-                    cn.producto = res.data.Producto;
+                    cn.productos = res.data.Producto;
                 });
-            };          
+            };  
+            cn.guardarProducto = function () {
+                var producto = {
+                    proceso: "guardarProducto",
+                    Nombre_producto: cn.Nombre_Producto,
+                    Precio: cn.Precio,
+                    Codigo_producto: cn.Codigo_producto,
+                    Fecha_vencimineto: cn.Fecha_vencimiento,
+                    Cantidad: cn.Cantidad,
+                    Tipo: cn.tipoTipo,
+                    Proveedor: cn.Proveedor
+                };
+                console.log(producto);
+                $http({
+                    method: 'POST',
+                    url: 'Peticiones.jsp',
+                    params: producto
+                }).then(function (res) {
+                    if (res.data.ok === true) {
+                        if (res.data[producto.proceso] === true) {
+                            alert("Guardado con éxito");
+                           cn.listarContactos();
+                        } else {
+                            alert("No se guardo Por favor vefifique sus datos");
+                        }
+                    } else {
+                        alert(res.data.errorMsg);
+                    }
+                });
+
+            };
         }
     </script>     
     
