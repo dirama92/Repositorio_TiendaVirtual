@@ -42,7 +42,7 @@
                             <input class="form-control" type="number" ng-model="cn.Codigo_producto" required>
                         </div>
                         <div class="col-6">
-                            <label>Fecha vencimineto</label>
+                            <label>Fecha vencimiento</label>
                             <input class="form-control" type="text" ng-model="cn.Fecha_vencimiento" required>
                         </div>
                     </div>
@@ -147,7 +147,7 @@
                     if (res.data.ok === true) {
                         if (res.data[producto.proceso] === true) {
                             alert("Guardado con éxito");
-                           cn.listarContactos();
+                           cn.listarProducto();
                         } else {
                             alert("No se guardo Por favor vefifique sus datos");
                         }
