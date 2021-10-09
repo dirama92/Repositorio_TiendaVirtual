@@ -27,17 +27,7 @@ public class Producto {
     public Producto() {
     }
 
- 
 
-    public Producto(String Nombre_Producto, int Precio, int Codigo_producto, String Fecha_vencimiento, int Cantidad, String Tipo, String Proveedor) {
-        this.Nombre_Producto = Nombre_Producto;
-        this.Precio = Precio;
-        this.Codigo_producto = Codigo_producto;
-        this.Fecha_vencimiento = Fecha_vencimiento;
-        this.Cantidad = Cantidad;
-        this.Tipo = Tipo;
-        this.Proveedor = Proveedor;
-    }
 
     public String getNombre_Producto() {
         return Nombre_Producto;
@@ -99,8 +89,8 @@ public class Producto {
     public boolean guardarProducto() {
         ConexionDB conexion = new ConexionDB();
         
-        String sentencia = "INSERT INTO Inventarioo(Nombre_Producto, Precio, Codigo_producto, Fecha_vencimiento, Cantidad, Tipo, Proveedor) "
-                + " VALUES ( '" + this.Nombre_Producto + "'," + this.Precio + ","
+        String sentencia = "INSERT INTO mi_tienda.hoja1(Nombre_Producto, Precio, Codigo_producto, Fecha_vencimiento, Cantidad, Tipo, Proveedor) "
+                + " VALUES ( '" + this.Nombre_Producto + "','" + this.Precio + "',"
                 + "," + this.Codigo_producto + ",'" + this.Fecha_vencimiento + "'," + this.Cantidad + ","
                 + "'" + this.Tipo + "','" + this.Proveedor + "');  ";
         
@@ -115,7 +105,7 @@ public class Producto {
     public boolean borrarProducto(int Codigo_producto) {
         ConexionDB conexion = new ConexionDB();
         
-        String sentencia = "DELETE FROM Inventarioo WHERE Codigo_producto='"+Codigo_producto+"';";
+        String sentencia = "DELETE FROM mi_tienda.hoja1 WHERE Codigo_producto='"+Codigo_producto+"';";
         
         System.out.println(sentencia);
         conexion.borrarDB(sentencia);
@@ -147,7 +137,7 @@ public class Producto {
     public List<Producto> listarProductos() throws SQLException {
         ConexionDB conexion = new ConexionDB();
         ArrayList<Producto> listaProductos = new ArrayList<>();
-        String sentencia = "SELECT * FROM productos";
+        String sentencia = "SELECT * FROM mi_tienda.hoja1 order by identificacion asc";
         ResultSet rs = conexion.consultarDB(sentencia);
         Producto P;
 

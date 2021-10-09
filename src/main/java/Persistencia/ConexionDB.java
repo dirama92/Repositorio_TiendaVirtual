@@ -7,17 +7,28 @@ public class ConexionDB {
 
 
     //atributos 
+    private String DB_driver = "";
     private String url="";   // direccion de base de datos
     public Connection con=null;  // estado de la conexion 
     private Statement stmt = null;  // sentencia de la operacion 
     private ResultSet rs = null;  // Resultado de la sentencia 
 
     public ConexionDB(){
-        url="jdbc:mysql://localhost:3306/mibarriodb";  // nombre del drive : DB : Direccion de la DB
+        DB_driver = "com.mysql.cj.jdbc.Driver";
+        url="jdbc:mysql://localhost:3306/mi_tienda?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";  // nombre del drive : DB : Direccion de la DB
+
         
-        //try para encontar error en la conexion 
+        try {
+            //Asignacin del Driver
+            Class.forName(DB_driver);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ConexionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //try para realizar conexion
         try{
             con=DriverManager.getConnection(url,"root","alvaro4278082");
+            con.setTransactionIsolation(8);
             if (con!=null){
                 DatabaseMetaData meta = con.getMetaData();
                 System.out.println("Base de datos conectada: "+ meta.getDriverName()+" producto: "+meta.getDatabaseProductName());
@@ -25,6 +36,7 @@ public class ConexionDB {
         }catch(SQLException erroSQL){
             System.out.println(erroSQL.getMessage());
         }
+        
     }
 
     public Connection getConnection(){
@@ -40,6 +52,8 @@ public class ConexionDB {
         }
     }    
     }
+    
+    
 
     //insertar en DB
     public boolean insertarDB(String sentencia){
@@ -87,7 +101,7 @@ public class ConexionDB {
     
     public ResultSet consultarDB(String sentencia){
         try {
-            stmt= con.createStatement();
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs=stmt.executeQuery(sentencia); // ejecutar sentencia con Query
             
         } catch (SQLException | RuntimeException error) {
